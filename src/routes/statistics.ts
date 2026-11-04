@@ -15,7 +15,8 @@ statisticsRouter.get("/", async (_req, res) => {
       prisma.playerHero.groupBy({
         by: ["heroId"],
         _count: { heroId: true },
-        orderBy: { _count: { heroId: "desc" } },
+        // Kalau jumlah pemiliknya seri, hero dengan id terkecil yang dipilih.
+        orderBy: [{ _count: { heroId: "desc" } }, { heroId: "asc" }],
         take: 1,
       }),
       prisma.hero.groupBy({
