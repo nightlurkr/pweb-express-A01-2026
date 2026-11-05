@@ -55,6 +55,7 @@ async function getAllSkins(req: Request, res: Response) {
       where,
       include: { hero: { select: { name: true } } },
       orderBy: { id: "asc" },
+      skip: (page - 1) * limit,
       take: limit,
     }),
   ]);
