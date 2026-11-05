@@ -55,7 +55,10 @@ function toPositiveInt(value: unknown, fallback: number): number {
 }
 
 // Dipakai untuk :hero_id, :skin_id, :player_id
-export function readIdParam(raw: string | undefined, label: string): number {
+export function readIdParam(raw: unknown, label: string): number {
+  if (typeof raw !== "string") {
+    throw new HttpError(400, `${label} harus berupa angka`);
+  }
   const parsed = Number(raw);
   if (!Number.isInteger(parsed) || parsed < 1) {
     throw new HttpError(400, `${label} harus berupa angka`);
